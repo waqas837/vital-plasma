@@ -10,7 +10,7 @@ export default function MainHero() {
                 initial={{ top: "-32%", left: "-32%", opacity: 0 }}
                 animate={{ top: "-32%", left: "-32%", opacity: 0.3 }}
                 transition={{ duration: 3, ease: "easeInOut", repeat: Infinity, repeatType: "loop" }}
-                className="absolute w-96 h-96 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
+                className="absolute w-96 h-96 bg-[#FA812F] rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"
             ></motion.div>
 
             <motion.div
@@ -42,9 +42,9 @@ export default function MainHero() {
                 >
                     <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight">
                         <span className="text-gray-900">Give </span>
-                        <span className="text-emerald-600 font-serif italic">Life.</span>{" "}
+                        <span className="text-[#FA812F] font-serif italic">Life.</span>{" "}
                         <span className="text-gray-900">Get </span>
-                        <span className="text-emerald-600 font-serif italic">Paid.</span>
+                        <span className="text-[#FA812F] font-serif italic">Paid.</span>
                     </h1>
                     <p className="text-xl text-gray-600 max-w-lg mx-auto md:mx-0 leading-relaxed">
                         Transform lives with PlasmaSource. Earn while making a meaningful difference in your community.
@@ -56,13 +56,13 @@ export default function MainHero() {
                                 boxShadow: "0 10px 25px -5px rgba(5, 150, 105, 0.4)",
                             }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                            className="bg-[#FA812F] hover:bg-[#FA812F] text-white font-medium px-8 py-3.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
                         >
                             Schedule Appointment
                         </motion.button>
                         <a
                             href="#"
-                            className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors flex items-center gap-2"
+                            className="text-[#FA812F] hover:text-[#FA812F] font-medium transition-colors flex items-center gap-2"
                         >
                             <span>Existing donor?</span>
                             <span className="underline">Sign in</span>
@@ -90,8 +90,8 @@ export default function MainHero() {
                     className="mb-8 md:mb-0 md:w-1/2 flex justify-center z-10"
                 >
                     <div className="relative group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300 -z-10 animate-pulse-slow"></div>
-                        <div className="rounded-full overflow-hidden w-72 h-72 relative border-4 border-emerald-500 shadow-xl group-hover:shadow-2xl transition-all duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#FA812F] to-[#FA812F] rounded-full blur-md opacity-75 group-hover:opacity-100 transition-opacity duration-300 -z-10 animate-pulse-slow"></div>
+                        <div className="rounded-full overflow-hidden w-72 h-72 relative border-4 border-[#FA812F] shadow-xl group-hover:shadow-2xl transition-all duration-300">
                             <Image
                                 src="/hero.jpg"
                                 alt="Happy plasma donor"

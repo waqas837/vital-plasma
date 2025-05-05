@@ -65,19 +65,19 @@ const DonationSteps = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-100/80 p-4 md:p-8">
+        <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-[#FA812F]to-[#FA812F]/80 p-4 md:p-8">
             {/* Background decorative elements */}
             <motion.div
                 initial={{ x: -100, y: -100, rotate: 0 }}
                 animate={{ x: 0, y: 0, rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-emerald-200/30 blur-[100px]"
+                className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-[#FA812F]/30 blur-[100px]"
             ></motion.div>
             <motion.div
                 initial={{ x: 100, y: 100, rotate: 0 }}
                 animate={{ x: 0, y: 0, rotate: -360 }}
                 transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                className="absolute -right-40 bottom-1/3 h-96 w-96 rounded-full bg-emerald-300/30 blur-[100px]"
+                className="absolute -right-40 bottom-1/3 h-96 w-96 rounded-full bg-[#FA812F]/30 blur-[100px]"
             ></motion.div>
 
             <motion.div
@@ -92,10 +92,10 @@ const DonationSteps = () => {
                     transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
                     className="text-center space-y-2"
                 >
-                    <h1 className="text-3xl font-bold text-emerald-800 md:text-4xl lg:text-5xl">
+                    <h1 className="text-3xl font-bold text-[#FA812F] md:text-4xl lg:text-5xl">
                         Simple Donation Process
                     </h1>
-                    <p className="text-emerald-600/80 max-w-lg mx-auto">
+                    <p className="text-[#FA812F]/80 max-w-lg mx-auto">
                         Join thousands of donors helping save lives every day
                     </p>
                 </motion.div>
@@ -112,7 +112,7 @@ const DonationSteps = () => {
                                 variants={pulseCircle}
                                 animate="visible"
                                 whileHover="hover"
-                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-2xl font-bold text-white shadow-lg"
+                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#FA812F] to-[#FA812F] text-2xl font-bold text-white shadow-lg"
                             >
                                 1
                             </motion.div>
@@ -121,7 +121,7 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.4 }}
-                                    className="text-xl font-semibold text-emerald-800 md:text-2xl"
+                                    className="text-xl font-semibold text-[#FA812F] md:text-2xl"
                                 >
                                     Schedule
                                 </motion.h3>
@@ -129,7 +129,7 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.6 }}
-                                    className="text-emerald-600/80 text-sm md:text-base"
+                                    className="text-[#FA812F]/80 text-sm md:text-base"
                                 >
                                     Book your convenient donation slot in minutes
                                 </motion.p>
@@ -178,7 +178,7 @@ const DonationSteps = () => {
                                 variants={pulseCircle}
                                 animate="visible"
                                 whileHover="hover"
-                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-2xl font-bold text-white shadow-lg"
+                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#FA812F] to-[#FA812F] text-2xl font-bold text-white shadow-lg"
                             >
                                 2
                             </motion.div>
@@ -187,7 +187,7 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.4 }}
-                                    className="text-xl font-semibold text-emerald-800 md:text-2xl"
+                                    className="text-xl font-semibold text-[#FA812F] md:text-2xl"
                                 >
                                     Donate
                                 </motion.h3>
@@ -195,7 +195,7 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.6 }}
-                                    className="text-emerald-600/80 text-sm md:text-base"
+                                    className="text-[#FA812F]/80 text-sm md:text-base"
                                 >
                                     Quick, safe, and comfortable process
                                 </motion.p>
@@ -238,7 +238,7 @@ const DonationSteps = () => {
                                 variants={pulseCircle}
                                 animate="visible"
                                 whileHover="hover"
-                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-2xl font-bold text-white shadow-lg"
+                                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#FA812F] to-[#FA812F] text-2xl font-bold text-white shadow-lg"
                             >
                                 3
                             </motion.div>
@@ -247,7 +247,7 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.4 }}
-                                    className="text-xl font-semibold text-emerald-800 md:text-2xl"
+                                    className="text-xl font-semibold text-[#FA812F] md:text-2xl"
                                 >
                                     Get Paid
                                 </motion.h3>
@@ -255,13 +255,13 @@ const DonationSteps = () => {
                                     initial={{ y: 20, opacity: 0 }}
                                     animate={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.6 }}
-                                    className="flex items-center gap-2 text-emerald-600/80 text-sm md:text-base"
+                                    className="flex items-center gap-2 text-[#FA812F]/80 text-sm md:text-base"
                                 >
                                     <motion.span
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         transition={{ type: "spring", delay: 0.8 }}
-                                        className="text-xl font-bold text-emerald-700"
+                                        className="text-xl font-bold text-[#FA812F]"
                                     >
                                         $60
                                     </motion.span>
@@ -341,7 +341,7 @@ const DonationSteps = () => {
                         boxShadow: "0 10px 25px -5px rgba(5, 150, 105, 0.4)"
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className="mt-8 rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-emerald-200/50 md:px-10 md:py-4 md:text-xl"
+                    className="mt-8 rounded-full bg-gradient-to-r from-[#d71f3a] to-[#d71f3a] px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:shadow-[#d71f3a]/50 md:px-10 md:py-4 md:text-xl"
                 >
                     Start Donating Now
                     <motion.span

@@ -37,7 +37,7 @@ const WhyDonateSection = () => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 py-16 px-4 md:px-8">
+        <div className="bg-gradient-to-br from-[#FA812F] to-[#FA812F] py-16 px-4 md:px-8">
             <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -45,13 +45,13 @@ const WhyDonateSection = () => {
             >
                 <motion.h2
                     variants={cardVariant}
-                    className="text-3xl font-bold text-emerald-800 md:text-4xl"
+                    className="text-3xl font-bold text-white md:text-4xl"
                 >
                     Why Donate?
                 </motion.h2>
                 <motion.p
                     variants={cardVariant}
-                    className="text-lg text-emerald-600 mt-4 md:text-xl"
+                    className="text-lg text-white mt-4 md:text-xl"
                 >
                     Your donation makes a huge impact! Here are some reasons why you should consider donating today.
                 </motion.p>
@@ -65,14 +65,14 @@ const WhyDonateSection = () => {
                         className="flex flex-col items-center gap-6 rounded-3xl bg-white shadow-lg p-8 md:p-10 backdrop-blur-md"
                     >
                         {/* Icon */}
-                        <div className="h-24 w-24 bg-emerald-600 rounded-full flex items-center justify-center shadow-xl">
+                        <div className="h-24 w-24 bg-[#FA812F] rounded-full flex items-center justify-center shadow-xl">
                             {React.cloneElement(benefit.icon, { className: "w-12 h-12 text-white" })}
                         </div>
 
                         {/* Title */}
                         <motion.h3
                             variants={cardVariant}
-                            className="text-xl font-semibold text-emerald-800"
+                            className="text-xl font-semibold text-[#FA812F]"
                         >
                             {benefit.title}
                         </motion.h3>
@@ -80,7 +80,7 @@ const WhyDonateSection = () => {
                         {/* Description */}
                         <motion.p
                             variants={cardVariant}
-                            className="text-center text-emerald-600"
+                            className="text-center text-[#FA812F]"
                         >
                             {benefit.description}
                         </motion.p>

@@ -20,7 +20,7 @@ const AppointmentPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-emerald-100 to-emerald-200 p-6 md:p-8 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-r from-[#FA812F] to-[#FA812F] p-6 md:p-8 flex items-center justify-center">
             <motion.div
                 className="relative max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10"
                 initial={{ opacity: 0, y: -50 }}
@@ -28,7 +28,7 @@ const AppointmentPage = () => {
                 transition={{ duration: 0.8, type: "spring" }}
             >
                 <motion.h1
-                    className="text-3xl md:text-4xl font-extrabold text-emerald-800 text-center mb-6 md:mb-8"
+                    className="text-3xl md:text-4xl font-extrabold text-[#FA812F] text-center mb-6 md:mb-8"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
@@ -46,7 +46,7 @@ const AppointmentPage = () => {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="w-full p-4 rounded-xl border-2 border-emerald-300 shadow-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none transition mb-2"
+                                    className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition mb-2"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.4, duration: 0.6 }}
@@ -60,7 +60,7 @@ const AppointmentPage = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full p-4 rounded-xl border-2 border-emerald-300 shadow-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none transition"
+                                    className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.5, duration: 0.6 }}
@@ -93,7 +93,7 @@ const AppointmentPage = () => {
                             <select
                                 value={time}
                                 onChange={(e) => setTime(e.target.value)}
-                                className="w-full p-4 rounded-xl border-2 border-emerald-300 shadow-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none transition"
+                                className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
                                 required
                             >
                                 <option value="" disabled>Select a Time Slot</option>
@@ -108,7 +108,7 @@ const AppointmentPage = () => {
 
                         <motion.button
                             type="submit"
-                            className="w-full mt-8 p-4 rounded-full bg-emerald-600 text-white text-xl font-semibold shadow-xl hover:bg-emerald-700 transition duration-200 ease-in-out"
+                            className="w-full mt-8 p-4 rounded-full bg-[#FA812F] text-white text-xl font-semibold shadow-xl hover:bg-[#FA812F] transition duration-200 ease-in-out"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ delay: 0.8, type: "spring" }}
@@ -118,7 +118,7 @@ const AppointmentPage = () => {
                     </form>
                 ) : (
                     <motion.div
-                        className="mt-8 p-6 text-center text-xl text-emerald-700"
+                        className="mt-8 p-6 text-center text-xl text-[#FA812F]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6 }}
@@ -131,7 +131,7 @@ const AppointmentPage = () => {
                             <strong>Time:</strong> {time} <br />
                         </p>
                         <motion.button
-                            className="mt-6 p-4 rounded-full bg-emerald-600 text-white text-lg font-semibold shadow-xl hover:bg-emerald-700 transition duration-200 ease-in-out"
+                            className="mt-6 p-4 rounded-full bg-[#FA812F] text-white text-lg font-semibold shadow-xl hover:bg-[#FA812F] transition duration-200 ease-in-out"
                             onClick={() => setSubmitted(false)}
                         >
                             Book Another Appointment
