@@ -1,7 +1,8 @@
 import DonationSteps from '@/components/DonationSteps'
 import MainHero from '@/components/HeroSection/MainHero'
 import PlasmaPromoComponent from '@/components/PlasmaPromoComponent'
-import WhyDonateSection from '@/components/WhyDonateSection'
+import DonationFeatures from '@/components/Teams'
+import DonorTestimonials from '@/components/Testimonials'
 
 const Home = () => {
   return (
@@ -9,7 +10,8 @@ const Home = () => {
       <MainHero />
       <PlasmaPromoComponent />
       <DonationSteps />
-      <WhyDonateSection />
+      <DonationFeatures />
+      <DonorTestimonials />
     </>
   )
 }

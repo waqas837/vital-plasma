@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Phone, CalendarCheck, LogIn, UserCheck, HeartHandshake, DollarSign, Info, MapPin, ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ const TopBar = () => {
             <div className="container mx-auto flex flex-col sm:flex-row justify-center sm:justify-end items-stretch sm:items-center gap-2 sm:gap-6 px-4 py-3">
                 <Link
                     href="tel:224-332-3870"
-                    className="flex items-center justify-center text-lg font-medium text-white hover:text-[#FA812F] transition-colors px-4 py-2 sm:py-0"
+                    className="flex items-center justify-center text-lg font-medium text-white hover:text-white transition-colors px-4 py-2 sm:py-0"
                 >
                     <Phone className="size-5 mr-2" />
                     Call 224-332-3870
@@ -21,7 +21,7 @@ const TopBar = () => {
                 <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                     <Link
                         href="/appointment"
-                        className="flex items-center justify-center rounded-lg border-2 border-white bg-white px-5 py-3 sm:py-2 text-lg font-medium text-[#FA812F] transition-all hover:bg-[#FA812F]hover:shadow-md duration-300 w-full sm:w-auto"
+                        className="flex items-center justify-center rounded-lg bg-gradient-to-br from-[#FA812F] to-[#AF1B31] text-white px-5 py-3 sm:py-2 text-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
                     >
                         <CalendarCheck className="size-5 mr-2" />
                         Schedule Appointment
@@ -29,7 +29,7 @@ const TopBar = () => {
 
                     <Link
                         href="/login"
-                        className="flex items-center justify-center rounded-lg border-2 border-[#FA812F] bg-[#FA812F] px-5 py-3 sm:py-2 text-lg font-medium text-[#FA812F] transition-all hover:bg-white hover:shadow-md duration-300 w-full sm:w-auto"
+                        className="flex items-center justify-center rounded-lg bg-[#FA812F] text-white border-2 border-[#FA812F] px-5 py-3 sm:py-2 text-lg font-medium hover:bg-white hover:text-[#FA812F] hover:shadow-md transition-all duration-300"
                     >
                         <LogIn className="size-5 mr-2" />
                         Log In
@@ -94,14 +94,13 @@ const Navbar = () => {
     return (
         <>
             <TopBar />
-            <nav className="border-b border-gray-200 bg-white shadow-sm">
+            <nav className="border-b-2 border-transparent bg-white shadow-sm" style={{ borderImage: 'linear-gradient(to right, #FA812F, #AF1B31)', borderImageSlice: 1 }}>
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex justify-between items-center">
                         {/* Logo */}
                         <Link href="/" className="flex items-center">
                             <img src="/logo.png" alt="Vital Plasma Logo" className="h-12 w-auto" />
                         </Link>
-
 
                         {/* Desktop Navigation */}
                         <div className="hidden lg:flex items-center gap-8">
@@ -119,14 +118,14 @@ const Navbar = () => {
                                         {item.href ? (
                                             <Link
                                                 href={item.href}
-                                                className="flex items-center gap-2 py-2 text-lg font-medium text-gray-700 hover:text-[#FA812F] transition-colors"
+                                                className="flex items-center gap-2 py-2 px-4 text-lg font-medium text-gray-700 rounded-md transition-all duration-300 hover:text-white hover:bg-gradient-to-br from-[#FA812F] to-[#AF1B31] shadow-sm hover:shadow-md"
                                             >
                                                 {item.icon}
                                                 {item.label}
                                             </Link>
                                         ) : (
                                             <button
-                                                className="flex items-center gap-2 py-2 text-lg font-medium text-gray-700 hover:text-[#FA812F] transition-colors"
+                                                className="flex items-center gap-2 py-2 px-4 text-lg font-medium text-gray-700 rounded-md transition-all duration-300 hover:text-white hover:bg-gradient-to-br from-[#FA812F] to-[#AF1B31] shadow-sm hover:shadow-md"
                                             >
                                                 {item.icon}
                                                 {item.label}
@@ -147,7 +146,7 @@ const Navbar = () => {
                                                 <Link
                                                     key={dropdownItem.href}
                                                     href={dropdownItem.href}
-                                                    className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-[#FA812F]transition-colors"
+                                                    className="flex items-center gap-3 px-4 py-3 text-gray-700 rounded-md hover:text-white hover:bg-gradient-to-br from-[#FA812F] to-[#AF1B31] transition-all duration-300"
                                                 >
                                                     {dropdownItem.icon}
                                                     {dropdownItem.label}
@@ -184,7 +183,7 @@ const Navbar = () => {
                                         {item.href ? (
                                             <Link
                                                 href={item.href}
-                                                className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-gray-800 hover:text-[#FA812F] hover:bg-[#FA812F]rounded-lg"
+                                                className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-gray-800 hover:text-white hover:bg-[#FA812F] hover:bg-opacity-80 rounded-lg"
                                                 onClick={() => setMobileMenuOpen(false)}
                                             >
                                                 {item.icon}
@@ -193,7 +192,7 @@ const Navbar = () => {
                                         ) : (
                                             <>
                                                 <button
-                                                    className="flex items-center justify-between gap-3 px-4 py-4 text-lg font-medium text-gray-800 hover:text-[#FA812F] hover:bg-[#FA812F]rounded-lg"
+                                                    className="flex items-center justify-between gap-3 px-4 py-4 text-lg font-medium text-gray-800 hover:text-white hover:bg-[#FA812F] hover:bg-opacity-80 rounded-lg"
                                                     onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                                                 >
                                                     <div className="flex items-center gap-3">
@@ -214,7 +213,7 @@ const Navbar = () => {
                                                             <Link
                                                                 key={dropdownItem.href}
                                                                 href={dropdownItem.href}
-                                                                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-[#FA812F] hover:bg-[#FA812F]rounded-lg"
+                                                                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:text-white hover:bg-[#FA812F] hover:bg-opacity-80 rounded-lg"
                                                                 onClick={() => setMobileMenuOpen(false)}
                                                             >
                                                                 {dropdownItem.icon}
