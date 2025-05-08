@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vital Plasma- Transform lives with PlasmaSource.",
-  description: "Transform lives with PlasmaSource. Earn while making a meaningful difference in your community.",
+  title: "Vital Plasma- Transform lives with VitalPlasma.",
+  description: "Transform lives with VitalPlasma. Earn while making a meaningful difference in your community.",
 };
 
 

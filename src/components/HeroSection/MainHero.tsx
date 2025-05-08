@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function MainHero() {
     return (
@@ -51,25 +52,26 @@ export default function MainHero() {
                         </span>
                     </h1>
 
-
                     <p className="text-lg md:text-xl text-gray-600 max-w-lg mx-auto md:mx-0 leading-relaxed">
-                        Transform lives with <span className="font-semibold text-gray-800">PlasmaSource</span>. Earn while making a meaningful difference in your community.
+                        Transform lives with <span className="font-semibold text-gray-800">VitalPlasma</span>. Earn while making a meaningful difference in your community.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center gap-5 justify-center md:justify-start">
-                        <motion.button
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: "0 10px 25px -5px rgba(250, 129, 47, 0.5)",
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-[#FA812F] to-[#AF1B31] hover:from-[#AF1B31] hover:to-[#FA812F] text-white font-medium px-8 py-3.5 rounded-lg shadow-md transition-all duration-300"
-                        >
-                            Schedule Appointment
-                        </motion.button>
+                        <Link href="/appointment">
+                            <motion.div
+                                whileHover={{
+                                    scale: 1.05,
+                                    boxShadow: "0 10px 25px -5px rgba(250, 129, 47, 0.5)",
+                                }}
+                                whileTap={{ scale: 0.95 }}
+                                className="bg-gradient-to-r from-[#FA812F] to-[#AF1B31] hover:from-[#AF1B31] hover:to-[#FA812F] text-white font-medium px-8 py-3.5 rounded-lg shadow-md transition-all duration-300 inline-block"
+                            >
+                                Schedule Appointment
+                            </motion.div>
+                        </Link>
 
-                        <a
-                            href="#"
+                        <Link
+                            href={"/login"}
                             className="text-[#AF1B31] hover:text-[#FA812F] font-medium transition-colors flex items-center gap-2"
                         >
                             <span>Existing donor?</span>
@@ -86,7 +88,7 @@ export default function MainHero() {
                                     clipRule="evenodd"
                                 />
                             </svg>
-                        </a>
+                        </Link>
                     </div>
                 </motion.div>
 

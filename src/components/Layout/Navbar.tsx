@@ -59,7 +59,7 @@ const navItems: NavItem[] = [
         icon: <UserCheck className="size-5" />,
         dropdown: [
             { href: "/eligibility", label: "Eligibility", icon: <UserCheck className="size-4" /> },
-            { href: "/requirements", label: "Requirements", icon: <UserCheck className="size-4" /> },
+            { href: "/referal-program", label: "Referal Program", icon: <UserCheck className="size-4" /> },
         ],
     },
     {

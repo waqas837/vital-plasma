@@ -159,27 +159,7 @@ const DonorTestimonials = () => {
 
                                         <p className="mb-8 text-lg text-[#FA812F]/80 italic">{testimonial.quote}</p>
 
-                                        <div className="mt-auto">
-                                            <a
-                                                href="#read-more"
-                                                className="inline-flex items-center text-[#FA812F] hover:underline"
-                                            >
-                                                Read full story
-                                                <svg
-                                                    className="ml-2 h-4 w-4"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    viewBox="0 0 24 24"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        strokeWidth="2"
-                                                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                                                    />
-                                                </svg>
-                                            </a>
-                                        </div>
+
                                     </motion.div>
                                 </div>
                             </div>

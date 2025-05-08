@@ -88,7 +88,7 @@ const DonationFeatures = () => {
     return (
         <div className="relative w-full overflow-hidden bg-white py-16 md:py-24">
             {/* Background elements */}
-            <div className="absolute inset-0 overflow-hidden opacity-10">
+            <div className="absolute overflow-hidden opacity-10">
                 <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[#FA812F]"></div>
                 <div className="absolute bottom-32 -left-20 h-40 w-40 rounded-full bg-[#FA812F]"></div>
             </div>
