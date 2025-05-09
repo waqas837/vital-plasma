@@ -20,7 +20,7 @@ const DonorTestimonials = () => {
             role: "Regular Donor, 3 years",
             quote: "The staff is always so friendly and the process is quick. I'm in and out in under an hour, and the compensation helps with my bills!",
             avatar: "/api/placeholder/150/150",
-            image: "/api/placeholder/600/400",
+            image: "/center.jpg",
         },
         {
             id: 2,
@@ -28,7 +28,7 @@ const DonorTestimonials = () => {
             role: "New Donor",
             quote: "I was nervous about donating for the first time, but everyone made me feel comfortable. The facility is clean and modern, and I'll definitely be back.",
             avatar: "/api/placeholder/150/150",
-            image: "/api/placeholder/600/400",
+            image: "/w.jpg",
         },
         {
             id: 3,
@@ -36,7 +36,7 @@ const DonorTestimonials = () => {
             role: "Regular Donor, 1 year",
             quote: "Donating has become part of my routine. It's an easy way to help others while earning some extra money. The online scheduling system is super convenient!",
             avatar: "/api/placeholder/150/150",
-            image: "/api/placeholder/600/400",
+            image: "/j.jpg",
         },
     ];
 

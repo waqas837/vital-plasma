@@ -58,8 +58,8 @@ export default function ReferralProgramPage() {
                         <h3 className="text-2xl font-semibold text-[#AF1B31] mb-4">Eligibility</h3>
                         <ul className="space-y-2 text-gray-700">
                             <li>• You must be a qualified donor to participate.</li>
-                            <li>• Referrals must live within a 30-mile radius of a PlasmaSource donation center.</li>
-                            <li>• Employees of PlasmaSource and its affiliates are not eligible for referral bonuses.</li>
+                            <li>• Referrals must live within a 30-mile radius of a Vital Plasma donation center.</li>
+                            <li>• Employees of Vital Plasma and its affiliates are not eligible for referral bonuses.</li>
                         </ul>
                     </div>
                 </div>
