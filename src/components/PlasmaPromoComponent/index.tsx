@@ -27,8 +27,8 @@ export default function PlasmaPromoComponent() {
                         Schedule an Appointment
                     </button>
                     <a
-                        href="#"
-                        className="text-[#FA812F] text-base font-medium hover:underline hover:text-[#AF1B31] transition-colors duration-300"
+                        href="/login"
+                        className="text-white text-base font-medium hover:underline hover:text-[#AF1B31] transition-colors duration-300"
                     >
                         Log in or create an account
                     </a>
