@@ -1,20 +1,47 @@
-"use client"
+'use client'
+
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation"; // To handle redirects after login
 import { motion } from "framer-motion";
+import { loginAction } from "../signup/actions";
 
 const LoginPage = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
+    const [isPending, setIsPending] = useState<boolean>(false);
+    const router = useRouter(); // For redirecting after login
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // Add your login logic here
+        setError('');
+        setSuccess('');
+
         if (!email || !password) {
             setError("Please fill in all fields.");
-        } else {
-            setError("");
-            // Handle successful login (redirect, API call, etc.)
+            return;
+        }
+
+        setIsPending(true);
+
+        try {
+            const res = await loginAction({ email, password });
+
+            if (res.success) {
+                setSuccess(res.message);
+                // Store the token in localStorage or cookies
+                localStorage.setItem('authToken', res.token!);
+
+                // Redirect to profile page or dashboard after successful login
+                router.push('/profile');
+            } else {
+                setError(res.message);
+            }
+        } catch (err) {
+            setError('Something went wrong. Please try again later.');
+        } finally {
+            setIsPending(false);
         }
     };
 
@@ -43,6 +70,17 @@ const LoginPage = () => {
                         transition={{ duration: 0.6 }}
                     >
                         <p>{error}</p>
+                    </motion.div>
+                )}
+
+                {success && (
+                    <motion.div
+                        className="text-green-600 text-center mb-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <p>{success}</p>
                     </motion.div>
                 )}
 
@@ -78,7 +116,7 @@ const LoginPage = () => {
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.6, type: "spring" }}
                     >
-                        Login
+                        {isPending ? "Logging in..." : "Login"}
                     </motion.button>
                 </form>
 

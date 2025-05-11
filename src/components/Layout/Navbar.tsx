@@ -1,12 +1,26 @@
-"use client";
+'use client';
 
-import { Phone, CalendarCheck, LogIn, UserCheck, HeartHandshake, DollarSign, Info, MapPin, ChevronDown, Menu, X } from "lucide-react";
+import { Phone, CalendarCheck, LogIn, UserCheck, HeartHandshake, DollarSign, Info, MapPin, ChevronDown, Menu, X, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
 
 // TopBar Component
-const TopBar = () => {
+const TopBar = ({ isLoggedIn, setIsLoggedIn }: { isLoggedIn: boolean, setIsLoggedIn: (value: boolean) => void }) => {
+    const router = useRouter();
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem('authToken'));
+    }, [pathname, setIsLoggedIn]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+        router.push('/login');
+    };
+
     return (
         <div className="bg-[#FA812F] text-white">
             <div className="container mx-auto flex flex-col sm:flex-row justify-center sm:justify-end items-stretch sm:items-center gap-2 sm:gap-6 px-4 py-3">
@@ -27,73 +41,84 @@ const TopBar = () => {
                         Schedule Appointment
                     </Link>
 
-                    <Link
-                        href="/login"
-                        className="flex items-center justify-center rounded-lg bg-[#FA812F] text-white border-2 border-[#FA812F] px-5 py-3 sm:py-2 text-lg font-medium hover:bg-white hover:text-[#FA812F] hover:shadow-md transition-all duration-300"
-                    >
-                        <LogIn className="size-5 mr-2" />
-                        Log In
-                    </Link>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className="flex items-center justify-center rounded-lg bg-[#FA812F] text-white border-2 border-[#FA812F] px-5 py-3 sm:py-2 text-lg font-medium hover:bg-white hover:text-[#FA812F] hover:shadow-md transition-all duration-300"
+                        >
+                            <LogOut className="size-5 mr-2" />
+                            Log Out
+                        </button>
+                    ) : (
+                        <Link
+                            href="/login"
+                            className="flex items-center justify-center rounded-lg bg-[#FA812F] text-white border-2 border-[#FA812F] px-5 py-3 sm:py-2 text-lg font-medium hover:bg-white hover:text-[#FA812F] hover:shadow-md transition-all duration-300"
+                        >
+                            <LogIn className="size-5 mr-2" />
+                            Log In
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>
     );
-}
-
-type DropdownItem = {
-    href: string;
-    label: string;
-    icon?: React.ReactNode;
 };
-
-type NavItem = {
-    href?: string;
-    label: string;
-    icon?: React.ReactNode;
-    dropdown?: DropdownItem[];
-};
-
-const navItems: NavItem[] = [
-    {
-        label: "Who it's for",
-        icon: <UserCheck className="size-5" />,
-        dropdown: [
-            { href: "/eligibility", label: "Eligibility", icon: <UserCheck className="size-4" /> },
-            { href: "/referal-program", label: "Referal Program", icon: <UserCheck className="size-4" /> },
-        ],
-    },
-    {
-        label: "Give Life",
-        icon: <HeartHandshake className="size-5" />,
-        dropdown: [
-            { href: "/donation-process", label: "Donation Process", icon: <HeartHandshake className="size-4" /> },
-            { href: "/impact", label: "Your Impact", icon: <HeartHandshake className="size-4" /> },
-        ],
-    },
-    {
-        href: "/get-paid",
-        label: "Get Paid",
-        icon: <DollarSign className="size-5" />
-    },
-    {
-        href: "/about-us",
-        label: "About Us",
-        icon: <Info className="size-5" />
-    },
-    {
-        href: "/locations",
-        label: "Locations",
-        icon: <MapPin className="size-5" />
-    },
-];
 
 const Navbar = () => {
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    // Check auth status on mount and when route changes
+    useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem('authToken'));
+    }, [pathname]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        setIsLoggedIn(false);
+        router.push('/login');
+    };
+
+    const navItems = [
+        {
+            label: "Who it's for",
+            icon: <UserCheck className="size-5" />,
+            dropdown: [
+                { href: "/eligibility", label: "Eligibility", icon: <UserCheck className="size-4" /> },
+                { href: "/referal-program", label: "Referral Program", icon: <UserCheck className="size-4" /> },
+            ],
+        },
+        {
+            label: "Give Life",
+            icon: <HeartHandshake className="size-5" />,
+            dropdown: [
+                { href: "/donation-process", label: "Donation Process", icon: <HeartHandshake className="size-4" /> },
+                { href: "/impact", label: "Your Impact", icon: <HeartHandshake className="size-4" /> },
+            ],
+        },
+        {
+            href: "/get-paid",
+            label: "Get Paid",
+            icon: <DollarSign className="size-5" />
+        },
+        {
+            href: "/about-us",
+            label: "About Us",
+            icon: <Info className="size-5" />
+        },
+        {
+            href: "/locations",
+            label: "Locations",
+            icon: <MapPin className="size-5" />
+        },
+    ];
 
     return (
         <>
-            <TopBar />
+            <TopBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             <nav className="border-b-2 border-transparent bg-white shadow-sm" style={{ borderImage: 'linear-gradient(to right, #FA812F, #AF1B31)', borderImageSlice: 1 }}>
                 <div className="container mx-auto px-4 py-4">
                     <div className="flex justify-between items-center">
@@ -156,6 +181,16 @@ const Navbar = () => {
                                     )}
                                 </motion.div>
                             ))}
+
+                            {/* {isLoggedIn && (
+                                <button
+                                    onClick={handleLogout}
+                                    className="flex items-center gap-2 py-2 px-4 text-lg font-medium text-gray-700 rounded-md transition-all duration-300 hover:text-white hover:bg-gradient-to-br from-[#FA812F] to-[#AF1B31] shadow-sm hover:shadow-md"
+                                >
+                                    <LogOut className="size-5" />
+                                    Log Out
+                                </button>
+                            )} */}
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -227,6 +262,16 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             ))}
+
+                            {isLoggedIn && (
+                                <button
+                                    onClick={handleLogout}
+                                    className="flex items-center gap-3 px-4 py-4 text-lg font-medium text-gray-800 hover:text-white hover:bg-[#FA812F] hover:bg-opacity-80 rounded-lg w-full"
+                                >
+                                    <LogOut className="size-5" />
+                                    Log Out
+                                </button>
+                            )}
                         </motion.div>
                     )}
                 </div>

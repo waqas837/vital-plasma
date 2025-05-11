@@ -1,125 +1,116 @@
-"use client"
-import { useState, FormEvent } from "react";
-import { motion } from "framer-motion";
+'use client'
+
+import { useState, FormEvent, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { signupAction } from './actions'
 
 const SignupPage = () => {
-    const [name, setName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [confirmPassword, setConfirmPassword] = useState<string>("");
-    const [error, setError] = useState<string>("");
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+    const [isPending, startTransition] = useTransition()
+    const router = useRouter()
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
+
+        setError('')
+        setSuccess('')
+
         if (!name || !email || !password || !confirmPassword) {
-            setError("Please fill in all fields.");
-        } else if (password !== confirmPassword) {
-            setError("Passwords do not match.");
-        } else {
-            setError("");
-            // Handle successful signup (redirect, API call, etc.)
+            setError('Please fill in all fields.')
+            return
         }
-    };
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match.')
+            return
+        }
+
+        startTransition(async () => {
+            const res: any = await signupAction({ name, email, password })
+
+            if (res.success) {
+                setSuccess(res.message)
+                setName('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
+
+                // Store the token in localStorage (or cookies, for security)
+                localStorage.setItem('authToken', res.token!)
+
+                // Redirect user to the profile page after successful signup
+                router.push('/profile')
+            } else {
+                setError(res.message)
+            }
+        })
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-[#FA812F] to-[#FA812F] p-6 md:p-8 flex items-center justify-center">
-            <motion.div
-                className="relative max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8"
-                initial={{ opacity: 0, y: -50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, type: "spring" }}
-            >
-                <motion.h1
-                    className="text-3xl font-extrabold text-[#FA812F] text-center mb-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                >
+            <div className="relative max-w-md mx-auto bg-white rounded-2xl shadow-xl p-8">
+                <h1 className="text-3xl font-extrabold text-[#FA812F] text-center mb-6">
                     Create a New Account
-                </motion.h1>
+                </h1>
 
-                {error && (
-                    <motion.div
-                        className="text-red-600 text-center mb-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <p>{error}</p>
-                    </motion.div>
-                )}
+                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+                {success && <p className="text-green-600 text-center mb-4">{success}</p>}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <motion.input
+                    <input
                         type="text"
                         placeholder="Full Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        required
-                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4, duration: 0.6 }}
+                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg"
                     />
-
-                    <motion.input
+                    <input
                         type="email"
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5, duration: 0.6 }}
+                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg"
                     />
-
-                    <motion.input
+                    <input
                         type="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6, duration: 0.6 }}
+                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg"
                     />
-
-                    <motion.input
+                    <input
                         type="password"
                         placeholder="Confirm Password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg focus:ring-2 focus:ring-[#FA812F] focus:outline-none transition"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.7, duration: 0.6 }}
+                        className="w-full p-4 rounded-xl border-2 border-[#FA812F] shadow-lg"
                     />
 
-                    <motion.button
+                    <button
                         type="submit"
-                        className="w-full p-4 rounded-full bg-[#FA812F] text-white text-xl font-semibold shadow-xl hover:bg-[#FA812F] transition duration-200 ease-in-out"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.8, type: "spring" }}
+                        disabled={isPending}
+                        className="w-full p-4 rounded-full bg-[#FA812F] text-white text-xl font-semibold shadow-xl"
                     >
-                        Sign Up
-                    </motion.button>
+                        {isPending ? 'Signing up...' : 'Sign Up'}
+                    </button>
                 </form>
 
                 <div className="mt-6 text-center">
                     <p className="text-sm text-[#FA812F]">
-                        Already have an account?{" "}
+                        Already have an account?{' '}
                         <a href="/login" className="font-semibold text-[#FA812F] hover:underline">
                             Login
                         </a>
                     </p>
                 </div>
-            </motion.div>
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default SignupPage;
+export default SignupPage

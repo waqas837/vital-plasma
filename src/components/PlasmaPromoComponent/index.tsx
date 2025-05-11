@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function PlasmaPromoComponent() {
@@ -23,9 +24,9 @@ export default function PlasmaPromoComponent() {
 
                 {/* Call to Action Buttons */}
                 <div className="mt-10 flex justify-center gap-6 flex-wrap">
-                    <button className="bg-[#FA812F] text-white px-8 py-3 rounded-xl text-base font-medium shadow-md hover:bg-[#AF1B31] transition-all duration-300 transform hover:scale-105">
+                    <Link href={"/appointment"} className="bg-[#FA812F] text-white px-8 py-3 rounded-xl text-base font-medium shadow-md hover:bg-[#AF1B31] transition-all duration-300 transform hover:scale-105">
                         Schedule an Appointment
-                    </button>
+                    </Link>
                     <a
                         href="/login"
                         className="text-white text-base font-medium hover:underline hover:text-[#AF1B31] transition-colors duration-300"
