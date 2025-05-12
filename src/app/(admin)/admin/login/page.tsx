@@ -2,16 +2,40 @@
 import { useState } from "react";
 import { Mail, Lock, LoaderCircle, ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { adminLoginAction } from "./actions";
 
 export default function AdminLogin() {
+  const [email, setEmail] = useState("");         // <-- Email state
+  const [password, setPassword] = useState("");   // <-- Password state
   const [loading, setLoading] = useState(false);
+  const [showmessage, setshowmessage] = useState(null);
   const router = useRouter();
+  type AdminLoginResponse = {
+    success: any;
+    message: any;
+    token: any;
+  };
 
   const handleLogin = async (e: any) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1500); // Simulated loading
-    router.push("/admin/dashboard");
+    try {
+      e.preventDefault();
+      setLoading(true);
+
+      let { success, message, token } = await adminLoginAction(email, password) as AdminLoginResponse
+      if (success) {
+        typeof window !== "undefined" && localStorage.setItem("adminToken", token)
+        setLoading(false);
+        router.push("/admin/dashboard");
+
+      } else {
+        setshowmessage(message)
+        setLoading(false)
+      }
+
+    } catch (error) {
+      console.log("error", error)
+    }
+
   };
 
   const goHome = () => {
@@ -46,7 +70,9 @@ export default function AdminLogin() {
             <input
               type="email"
               placeholder="Email"
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20 text-white placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}   // <-- Set email
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20  placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
               required
             />
           </div>
@@ -56,7 +82,9 @@ export default function AdminLogin() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20 text-white placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} // <-- Set password
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20 not-only-of-type: placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
               required
             />
           </div>
@@ -74,19 +102,20 @@ export default function AdminLogin() {
               "Login"
             )}
           </button>
+          {showmessage && <p className="text-red-400 text-center">{showmessage}</p>}
         </form>
 
         <div className="absolute -inset-0.5 rounded-2xl z-[-1] bg-white/5 shadow-inner shadow-black/20 pointer-events-none" />
       </div>
 
-      <style jsx>{
-        `input::placeholder {
+      <style jsx>{`
+        input::placeholder {
           font-family: 'Inter', sans-serif;
         }
         input {
           font-family: 'Inter', sans-serif;
-        }`
-      }</style>
+        }
+      `}</style>
     </div>
   );
 }

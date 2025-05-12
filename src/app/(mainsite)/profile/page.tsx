@@ -8,6 +8,7 @@ import {
     Info,
     Phone,
     DollarSign,
+    Briefcase,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -70,6 +71,12 @@ export default function ProfilePage() {
                                 description="Reach out for support"
                                 href="/contact"
                                 icon={<Phone size={28} />}
+                            />
+                             <Card
+                                title="My Appointments"
+                                description="You can see here all submitted appointments"
+                                href="/profile/appointments"
+                                icon={<Briefcase size={28} />}
                             />
                         </div>
 

@@ -3,6 +3,7 @@ import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css"; // Make sure to include react-calendar styles.
+import { submitAppointmentRequest } from "./actions";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -14,9 +15,20 @@ const AppointmentPage = () => {
     const [email, setEmail] = useState<string>("");
     const [submitted, setSubmitted] = useState<boolean>(false);
 
-    const handleSubmit = (e: FormEvent) => {
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
+
+        console.log("Appointment Details:");
+        console.log("Name:", name);
+        console.log("Email:", email);
+        console.log("Time:", time);
+        let { message, success } = await submitAppointmentRequest(name, email, date, time)
+        if (success) {
+            setSubmitted(true);
+        } else {
+            alert("Internal server error")
+        }
     };
 
     return (
@@ -123,7 +135,7 @@ const AppointmentPage = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="font-bold text-2xl">Your Appointment is Confirmed!</h2>
+                        <h2 className="font-bold text-2xl">Your Appointment is Submitted!</h2>
                         <p className="mt-4">
                             <strong>Name:</strong> {name} <br />
                             <strong>Email:</strong> {email} <br />
