@@ -25,11 +25,11 @@ const TopBar = ({ isLoggedIn, setIsLoggedIn }: { isLoggedIn: boolean, setIsLogge
         <div className="bg-[#FA812F] text-white">
             <div className="container mx-auto flex flex-col sm:flex-row justify-center sm:justify-end items-stretch sm:items-center gap-2 sm:gap-6 px-4 py-3">
                 <Link
-                    href="tel:224-332-3870"
+                    href="tel:(844) 908-4825"
                     className="flex items-center justify-center text-lg font-medium text-white hover:text-white transition-colors px-4 py-2 sm:py-0"
                 >
                     <Phone className="size-5 mr-2" />
-                    Call 224-332-3870
+                    Call (844) 908-4825
                 </Link>
 
                 <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">

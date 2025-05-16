@@ -31,9 +31,11 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
           <ul className="space-y-2 text-sm text-gray-400">
-            <li>Email: <a href="mailto:info@bloodflow.org" className="hover:text-white">info@bloodflow.org</a></li>
-            <li>Phone: <span className="hover:text-white">+1 (800) 555-1234</span></li>
+            <li>Email: <a href="mailto:Ap@vitalplasma.com" className="hover:text-white">ap@vitalplasma.com</a></li>
+            <li>Phone: <span className="hover:text-white">(844) 908-4825</span></li>
             <li>Support Hours: Mon–Fri, 9am–5pm</li>
+            <li>Address: 12381 s Cleveland ave
+              Fort Myers FL 33907</li>
           </ul>
         </div>
 
@@ -50,7 +52,7 @@ const Footer = () => {
             <a href="#" className="hover:text-[#FA812F] transition-all">
               <Twitter className="w-5 h-5" />
             </a>
-            <a href="mailto:info@bloodflow.org" className="hover:text-[#FA812F] transition-all">
+            <a href="mailto:Ap@vitalplasma.com" className="hover:text-[#FA812F] transition-all">
               <Mail className="w-5 h-5" />
             </a>
           </div>
