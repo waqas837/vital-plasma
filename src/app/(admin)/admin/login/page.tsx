@@ -72,7 +72,7 @@ export default function AdminLogin() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}   // <-- Set email
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20  placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20  placeholder-gray/60 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
               required
             />
           </div>
@@ -84,7 +84,7 @@ export default function AdminLogin() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} // <-- Set password
-              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20 not-only-of-type: placeholder-white/60 border border-white/30 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
+              className="w-full pl-10 pr-4 py-2.5 text-sm bg-white/20 not-only-of-type: placeholder-gray/60 border  border-gray-300 rounded-xl focus:ring-2 focus:ring-[#FA812F]/40 outline-none transition-all"
               required
             />
           </div>
