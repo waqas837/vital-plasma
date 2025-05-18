@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Edit, Trash2, PlusCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { PlusCircle, Edit, Trash2 } from "lucide-react";
+import { deleteHospital, getHospitals, insertHospital, updateHospital } from "./actions";
+
 
 type Hospital = {
     id: number;
@@ -9,42 +11,35 @@ type Hospital = {
     location: string;
 };
 
-const mockHospitals: Hospital[] = [
-    {
-        id: 1,
-        name: "City Medical Center",
-        location: "123 Main St, Downtown",
-    },
-    {
-        id: 2,
-        name: "Green Valley Hospital",
-        location: "456 Oak Rd, Green Valley",
-    },
-    {
-        id: 3,
-        name: "Sunrise Health Clinic",
-        location: "789 Pine Ln, Hilltop",
-    },
-];
-
 export default function HospitalsPage() {
-    const [hospitals, setHospitals] = useState<Hospital[]>(mockHospitals);
-    const [showModal, setShowModal] = useState(false);
+    const [hospitals, setHospitals] = useState<Hospital[]>([]);
+    const [newHospital, setNewHospital] = useState({ name: "", location: "" });
     const [editFormData, setEditFormData] = useState<Hospital | null>(null);
-    const [newHospital, setNewHospital] = useState<Hospital>({
-        id: 0,
-        name: "",
-        location: "",
-    });
+    const [showModal, setShowModal] = useState(false);
 
-    const handleAddHospital = () => {
-        const newHospitalData = {
-            ...newHospital,
-            id: Date.now(), // Unique ID based on timestamp
+    useEffect(() => {
+        const loadHospitals = async () => {
+            const res = await getHospitals();
+            if (res.success) setHospitals(res.hospitals);
+            else alert("Failed to load hospitals.");
         };
-        setHospitals((prev) => [...prev, newHospitalData]);
-        setNewHospital({ id: 0, name: "", location: "" });
-        setShowModal(false);
+        loadHospitals();
+    }, []);
+
+    const handleAddHospital = async () => {
+        if (!newHospital.name.trim() || !newHospital.location.trim()) {
+            alert("Please enter valid name and location.");
+            return;
+        }
+        const res = await insertHospital(newHospital.name, newHospital.location);
+        if (res.success) {
+            const refreshed = await getHospitals();
+            if (refreshed.success) setHospitals(refreshed.hospitals);
+            setNewHospital({ name: "", location: "" });
+            setShowModal(false);
+        } else {
+            alert(res.message);
+        }
     };
 
     const handleEditHospital = (hospital: Hospital) => {
@@ -52,8 +47,29 @@ export default function HospitalsPage() {
         setShowModal(true);
     };
 
-    const handleDeleteHospital = (id: number) => {
-        setHospitals((prev) => prev.filter((hospital) => hospital.id !== id));
+    const handleSaveEdit = async () => {
+        if (editFormData) {
+            const res = await updateHospital(editFormData.id, editFormData.name, editFormData.location);
+            if (res.success) {
+                const refreshed = await getHospitals();
+                if (refreshed.success) setHospitals(refreshed.hospitals);
+                setEditFormData(null);
+                setShowModal(false);
+            } else {
+                alert(res.message);
+            }
+        }
+    };
+
+    const handleDeleteHospital = async (id: number) => {
+        if (!confirm("Are you sure you want to delete this hospital?")) return;
+
+        const res = await deleteHospital(id);
+        if (res.success) {
+            setHospitals((prev) => prev.filter((h) => h.id !== id));
+        } else {
+            alert(res.message);
+        }
     };
 
     const handleInputChange = (
@@ -61,10 +77,7 @@ export default function HospitalsPage() {
         field: "name" | "location"
     ) => {
         if (editFormData) {
-            setEditFormData({
-                ...editFormData,
-                [field]: e.target.value,
-            });
+            setEditFormData({ ...editFormData, [field]: e.target.value });
         }
     };
 
@@ -72,21 +85,7 @@ export default function HospitalsPage() {
         e: React.ChangeEvent<HTMLInputElement>,
         field: "name" | "location"
     ) => {
-        setNewHospital({
-            ...newHospital,
-            [field]: e.target.value,
-        });
-    };
-
-    const handleSaveEdit = () => {
-        if (editFormData) {
-            setHospitals((prev) =>
-                prev.map((hospital) =>
-                    hospital.id === editFormData.id ? editFormData : hospital
-                )
-            );
-            setShowModal(false);
-        }
+        setNewHospital({ ...newHospital, [field]: e.target.value });
     };
 
     const handleModalClose = () => {
@@ -95,60 +94,51 @@ export default function HospitalsPage() {
     };
 
     return (
-        <div className="bg-gray-50 min-h-screen p-6">
-            <h1 className="text-4xl font-serif text-orange-500 mb-8 flex items-center">
-                <PlusCircle className="mr-3 text-3xl" /> Hospitals Management
+        <div className="p-6 bg-gray-50 min-h-screen">
+            <h1 className="text-3xl font-bold text-orange-500 mb-6 flex items-center">
+                <PlusCircle className="mr-2" /> Hospitals Management
             </h1>
 
             <button
                 onClick={() => setShowModal(true)}
-                className="bg-orange-500 text-white py-2 px-4 rounded-lg shadow-xl hover:bg-orange-600 transition-all duration-300 flex items-center mb-6"
+                className="bg-orange-500 text-white px-4 py-2 rounded-md mb-4 flex items-center"
             >
-                <PlusCircle className="mr-2" />
-                Add Hospital
+                <PlusCircle className="mr-2" /> Add Hospital
             </button>
 
-            <div className="overflow-auto rounded-lg shadow-xl backdrop-blur-md bg-white/80 p-6 border border-gray-100">
-                <table className="min-w-full bg-transparent">
-                    <thead className="bg-[#FA812F] text-white">
+            <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                <table className="min-w-full">
+                    <thead className="bg-orange-500 text-white">
                         <tr>
-                            <th className="text-left p-4 text-sm font-semibold tracking-wide">Hospital Name</th>
-                            <th className="text-left p-4 text-sm font-semibold tracking-wide">Location</th>
-                            <th className="text-left p-4 text-sm font-semibold tracking-wide">Actions</th>
+                            <th className="p-4 text-left">Name</th>
+                            <th className="p-4 text-left">Location</th>
+                            <th className="p-4 text-left">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {hospitals.map(({ id, name, location }) => (
-                            <tr
-                                key={id}
-                                className="border-b border-gray-200 hover:bg-orange-50 transition-all duration-200"
-                            >
-                                <td className="p-4 text-sm text-gray-800">{name}</td>
-                                <td className="p-4 text-sm text-gray-800">{location}</td>
-                                <td className="p-4 space-x-4 flex justify-start items-center">
-                                    {/* Edit Button */}
+                        {hospitals.map((hospital) => (
+                            <tr key={hospital.id} className="border-t">
+                                <td className="p-4">{hospital.name}</td>
+                                <td className="p-4">{hospital.location}</td>
+                                <td className="p-4 space-x-3">
                                     <button
-                                        onClick={() => handleEditHospital({ id, name, location })}
-                                        className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-3 rounded-full shadow-xl hover:scale-105 transition-all duration-300 transform hover:shadow-2xl"
-                                        aria-label="Edit"
+                                        onClick={() => handleEditHospital(hospital)}
+                                        className="bg-blue-500 text-white p-2 rounded"
                                     >
-                                        <Edit className="w-5 h-5" />
+                                        <Edit className="w-4 h-4" />
                                     </button>
-
-                                    {/* Delete Button */}
                                     <button
-                                        onClick={() => handleDeleteHospital(id)}
-                                        className="bg-gradient-to-r from-red-400 to-red-600 text-white p-3 rounded-full shadow-xl hover:scale-105 transition-all duration-300 transform hover:shadow-2xl"
-                                        aria-label="Delete"
+                                        onClick={() => handleDeleteHospital(hospital.id)}
+                                        className="bg-red-500 text-white p-2 rounded"
                                     >
-                                        <Trash2 className="w-5 h-5" />
+                                        <Trash2 className="w-4 h-4" />
                                     </button>
                                 </td>
                             </tr>
                         ))}
                         {hospitals.length === 0 && (
                             <tr>
-                                <td colSpan={3} className="text-center p-4 text-gray-500">
+                                <td colSpan={3} className="p-4 text-center text-gray-500">
                                     No hospitals found.
                                 </td>
                             </tr>
@@ -157,52 +147,47 @@ export default function HospitalsPage() {
                 </table>
             </div>
 
-            {/* Add/Edit Modal */}
+            {/* Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-gray backdrop-blur-sm bg-opacity-50 z-40 flex justify-center items-center">
-                    <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-                        <h2 className="text-2xl font-bold text-orange-500 mb-4">
+                <div className="fixed inset-0 bg-white bg-opacity-30 backdrop-blur-md flex justify-center items-center z-50">
+                    <div className="bg-white p-6 rounded shadow-md w-96">
+                        <h2 className="text-xl font-semibold mb-4">
                             {editFormData ? "Edit Hospital" : "Add Hospital"}
                         </h2>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Hospital Name</label>
-                            <input
-                                type="text"
-                                value={editFormData ? editFormData.name : newHospital.name}
-                                onChange={(e) =>
-                                    editFormData
-                                        ? handleInputChange(e, "name")
-                                        : handleNewHospitalChange(e, "name")
-                                }
-                                className="w-full p-3 border border-gray-300 rounded-md mb-4"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium mb-2">Location</label>
-                            <input
-                                type="text"
-                                value={editFormData ? editFormData.location : newHospital.location}
-                                onChange={(e) =>
-                                    editFormData
-                                        ? handleInputChange(e, "location")
-                                        : handleNewHospitalChange(e, "location")
-                                }
-                                className="w-full p-3 border border-gray-300 rounded-md mb-4"
-                            />
-                        </div>
-
-                        <div className="flex justify-end space-x-4">
+                        <input
+                            type="text"
+                            placeholder="Hospital Name"
+                            value={editFormData ? editFormData.name : newHospital.name}
+                            onChange={(e) =>
+                                editFormData
+                                    ? handleInputChange(e, "name")
+                                    : handleNewHospitalChange(e, "name")
+                            }
+                            className="w-full border px-3 py-2 mb-3 rounded"
+                        />
+                        <input
+                            type="text"
+                            placeholder="Location"
+                            value={editFormData ? editFormData.location : newHospital.location}
+                            onChange={(e) =>
+                                editFormData
+                                    ? handleInputChange(e, "location")
+                                    : handleNewHospitalChange(e, "location")
+                            }
+                            className="w-full border px-3 py-2 mb-4 rounded"
+                        />
+                        <div className="flex justify-end space-x-3">
                             <button
                                 onClick={handleModalClose}
-                                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-md"
+                                className="px-4 py-2 bg-gray-300 rounded"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={editFormData ? handleSaveEdit : handleAddHospital}
-                                className="bg-orange-500 text-white px-6 py-2 rounded-md"
+                                className="px-4 py-2 bg-orange-500 text-white rounded"
                             >
-                                {editFormData ? "Save Changes" : "Add Hospital"}
+                                {editFormData ? "Save" : "Add"}
                             </button>
                         </div>
                     </div>

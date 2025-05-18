@@ -1,8 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Users, CalendarCheck, Droplet } from "lucide-react";
+import { getDashboardCounts } from "./actions";
 
 export default function AdminDashboardPage() {
+  const [counts, setCounts] = useState({
+    totalUsers: 0,
+    totalAppointments: 0,
+    totalDonations: 0,
+  });
+
+  useEffect(() => {
+    async function fetchCounts() {
+      const res: any = await getDashboardCounts();
+      if (res.success) {
+        setCounts(res.data);
+      } else {
+        alert("Failed to load dashboard data.");
+      }
+    }
+    fetchCounts();
+  }, []);
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-orange-500 mb-6">
@@ -15,7 +35,7 @@ export default function AdminDashboardPage() {
           <Users className="w-10 h-10 text-orange-500" />
           <div>
             <p className="text-sm text-gray-500">Total Users</p>
-            <p className="text-xl font-semibold">1,248</p>
+            <p className="text-xl font-semibold">{counts.totalUsers}</p>
           </div>
         </div>
 
@@ -23,7 +43,7 @@ export default function AdminDashboardPage() {
           <CalendarCheck className="w-10 h-10 text-orange-500" />
           <div>
             <p className="text-sm text-gray-500">Appointments</p>
-            <p className="text-xl font-semibold">384</p>
+            <p className="text-xl font-semibold">{counts.totalAppointments}</p>
           </div>
         </div>
 
@@ -31,7 +51,7 @@ export default function AdminDashboardPage() {
           <Droplet className="w-10 h-10 text-orange-500" />
           <div>
             <p className="text-sm text-gray-500">Donations</p>
-            <p className="text-xl font-semibold">712</p>
+            <p className="text-xl font-semibold">{counts.totalDonations}</p>
           </div>
         </div>
       </div>

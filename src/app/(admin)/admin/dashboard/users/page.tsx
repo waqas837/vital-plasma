@@ -1,46 +1,52 @@
 "use client";
 
-import { useState } from "react";
-import { User, Edit, Trash2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { User, Trash2 } from "lucide-react";
+import { deleteSingleUser, getAllUsers } from "./actions";
 
-type User = {
+type UserType = {
     id: number;
     name: string;
     email: string;
-    role: "Admin" | "User" | "Moderator";
+    is_confirmed: string;
 };
 
-const mockUsers: User[] = [
-    {
-        id: 1,
-        name: "Alice Johnson",
-        email: "alice@example.com",
-        role: "Admin",
-    },
-    {
-        id: 2,
-        name: "Bob Brown",
-        email: "bob@example.com",
-        role: "User",
-    },
-    {
-        id: 3,
-        name: "Charlie Davis",
-        email: "charlie@example.com",
-        role: "Moderator",
-    },
-];
-
 export default function UsersPage() {
-    const [users, setUsers] = useState<User[]>(mockUsers);
+    const [users, setUsers] = useState<UserType[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchUsers() {
+            try {
+                const data: any = await getAllUsers();
+                if (data.success) {
+                    console.log("data", data)
+                    setUsers(data.users
+                    );
+                } else {
+                    alert(data.message || "Failed to fetch users");
+                }
+            } catch (error) {
+                alert("Error fetching users");
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchUsers();
+    }, []);
 
     const handleEdit = (id: number) => {
         alert(`Edit user ${id}`);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: any) => {
+        await deleteSingleUser(id)
         setUsers((prev) => prev.filter((user) => user.id !== id));
     };
+
+    if (loading) {
+        return <p>Loading users...</p>;
+    }
 
     return (
         <div className="bg-gray-50 min-h-screen p-6">
@@ -54,32 +60,30 @@ export default function UsersPage() {
                         <tr>
                             <th className="text-left p-4 text-sm font-semibold tracking-wide">Name</th>
                             <th className="text-left p-4 text-sm font-semibold tracking-wide">Email</th>
-                            <th className="text-left p-4 text-sm font-semibold tracking-wide">Role</th>
+                            {/* <th className="text-left p-4 text-sm font-semibold tracking-wide">Status</th> */}
                             <th className="text-left p-4 text-sm font-semibold tracking-wide">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map(({ id, name, email, role }) => (
+                        {users.length > 0 ? users.map(({ id, name, email, is_confirmed }) => (
                             <tr key={id} className="border-b border-gray-200 hover:bg-orange-50 transition-all duration-200">
                                 <td className="p-4 text-sm text-gray-800">{name}</td>
                                 <td className="p-4 text-sm text-gray-800">{email}</td>
-                                <td className="p-4 text-sm text-gray-800">{role}</td>
+
                                 <td className="p-4 space-x-4 flex justify-start items-center">
-                                    {/* Edit Button */}
                                     <div className="relative group">
-                                        <button
+                                        {/* <button
                                             onClick={() => handleEdit(id)}
                                             className="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-3 rounded-full shadow-xl hover:scale-105 transition-all duration-300 transform hover:shadow-2xl"
                                             aria-label="Edit"
                                         >
                                             <Edit className="w-5 h-5" />
-                                        </button>
+                                        </button> */}
                                         <span className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black text-white text-xs rounded px-2 py-1 bottom-10 left-1/2 transform -translate-x-1/2">
                                             Edit
                                         </span>
                                     </div>
 
-                                    {/* Delete Button */}
                                     <div className="relative group">
                                         <button
                                             onClick={() => handleDelete(id)}
@@ -94,8 +98,7 @@ export default function UsersPage() {
                                     </div>
                                 </td>
                             </tr>
-                        ))}
-                        {users.length === 0 && (
+                        )) : (
                             <tr>
                                 <td colSpan={5} className="text-center p-4 text-gray-500 text-lg">
                                     No users found.

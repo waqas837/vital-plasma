@@ -4,5 +4,5 @@ import AppointmentRequestsPage from "@/app/(admin)/admin/dashboard/appointments/
  
 export default async function AppointmentsPage() {
     const { appointments } = await getAppointmentRequests();
-    return <AppointmentRequestsPage initialAppointments={appointments as any} />;
+    return <AppointmentRequestsPage initialAppointments={appointments as any} user={"simpleUser"} />;
 }

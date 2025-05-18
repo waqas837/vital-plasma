@@ -17,6 +17,14 @@ CREATE TABLE IF NOT EXISTS admin (
 );
 
 -- Create appointment-requests table
+-- hospitals
+CREATE TABLE IF NOT EXISTS hospitals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    location VARCHAR(255)
+);
+
+-- appointment_requests
 CREATE TABLE IF NOT EXISTS appointment_requests (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -25,5 +33,8 @@ CREATE TABLE IF NOT EXISTS appointment_requests (
   appointment_time VARCHAR(50) NOT NULL,
   message TEXT,
   is_confirmed BOOLEAN DEFAULT FALSE,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  donation_done BOOLEAN DEFAULT FALSE,
+  hospital_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (hospital_id) REFERENCES hospitals(id)
 );

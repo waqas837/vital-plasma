@@ -27,11 +27,23 @@ export async function submitMessage(id: number, message: string) {
 }
 
 // Confirm an appointment (set is_confirmed = 1)
-export async function confirmAppointment(id: number) {
+export async function confirmAppointment(id: number, confirmValue: number) {
     try {
-        const query = `UPDATE appointment_requests SET is_confirmed = 1 WHERE id = ?`;
-        await db.execute(query, [id]);
-        return { success: true, message: 'Appointment confirmed successfully.' };
+        const query = `UPDATE appointment_requests SET is_confirmed = ? WHERE id = ?`;
+        await db.execute(query, [confirmValue, id]);
+        return { success: true, message: 'Appointment status changed successfully.' };
+    } catch (err: any) {
+        console.error('Error confirming appointment:', err);
+        return { success: false, message: 'Failed to confirm appointment.' };
+    }
+}
+
+// Confirm an appointment (set donation_done = 1)
+export async function have_donated_done(id: number, donation_done: number) {
+    try {
+        const query = `UPDATE appointment_requests SET donation_done = ? WHERE id = ?`;
+        await db.execute(query, [donation_done, id]);
+        return { success: true, message: 'Appointment status changed successfully.' };
     } catch (err: any) {
         console.error('Error confirming appointment:', err);
         return { success: false, message: 'Failed to confirm appointment.' };
@@ -51,12 +63,12 @@ export async function deleteAppointment(id: number) {
 }
 
 export async function getUserAppointments(userEmail: string) {
-  try {
-    const query = `SELECT * FROM appointment_requests WHERE email = ? ORDER BY appointment_date DESC`;
-    const [rows] = await db.execute(query, [userEmail]);
-    return rows;
-  } catch (err) {
-    console.error('Error fetching appointments:', err);
-    return [];
-  }
+    try {
+        const query = `SELECT * FROM appointment_requests WHERE email = ? ORDER BY appointment_date DESC`;
+        const [rows] = await db.execute(query, [userEmail]);
+        return rows;
+    } catch (err) {
+        console.error('Error fetching appointments:', err);
+        return [];
+    }
 }

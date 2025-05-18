@@ -57,7 +57,7 @@ export default function SidebarLayout({ children }: SidebarLayoutProps) {
         { label: "All Users", href: "/admin/dashboard/users", icon: Users },
         { label: "Donation History", href: "/admin/dashboard/donations", icon: Droplet },
         { label: "Hospitals / Centers", href: "/admin/dashboard/centers", icon: Building },
-        { label: "Notifications", href: "/admin/dashboard/notifications", icon: MessageCircle },
+        // { label: "Notifications", href: "/admin/dashboard/notifications", icon: MessageCircle },
         { label: "Settings", href: "/admin/dashboard/settings", icon: Settings },
     ];
 
